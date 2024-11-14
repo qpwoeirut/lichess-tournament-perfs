@@ -1,6 +1,7 @@
 import {TournamentResult} from "@/app/types";
-import {JSXElementConstructor, useState} from "react";
+import {useState} from "react";
 import {arrowDown, arrowUp} from "@/app/arrow";
+import {Paginator} from "@/app/paginator";
 
 const datetimeOptions = {
     "year": "numeric",
@@ -12,7 +13,7 @@ const datetimeOptions = {
 
 const ArenaColumns = {
     'Arena': (t: TournamentResult) => t.tournament.fullName,
-    'Performance': (t: TournamentResult) => t.player.performance,
+    'Performance': (t: TournamentResult) => t.player.performance ?? 0,
     'Points': (t: TournamentResult) => t.player.score,
     'Games Played': (t: TournamentResult) => t.player.games,
     'Variant': (t: TournamentResult) => t.tournament.variant.name,
@@ -29,6 +30,9 @@ export function Results(results: TournamentResult[]) {
         if (sortColumn === col) setSortDirection(!sortDirection);
         else setSortColumn(col);
     }
+
+    const [page, setPage] = useState<number>(0);
+    const [pageSize, setPageSize] = useState<number>(20);
 
     const headers = Object.keys(ArenaColumns).map((name) =>
         <th key={name} scope="col" className="px-6 py-3" onClick={() => updateSortColumn(name as Column)}>
@@ -51,7 +55,8 @@ export function Results(results: TournamentResult[]) {
         }
     })
 
-    const rows = results.map((result) =>
+    const rows = results
+    .slice(page * pageSize, (page + 1) * pageSize).map((result) =>
         <tr key={result.tournament.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
             <td className="px-6 py-4">
                 <a href={linkFor(result)} className="light:hover:text-blue-800 dark:hover:text-gray-100 hover:underline"
@@ -60,11 +65,13 @@ export function Results(results: TournamentResult[]) {
                 </a>
             </td>
             {Object.keys(ArenaColumns).filter(name => !['Arena', 'Start Time'].includes(name)).map((name) =>
-                <td key={name}>
+                <td key={name} className="px-6 py-4">
                     {ArenaColumns[name as Column](result)}
                 </td>)
             }
-            <td>{new Date(ArenaColumns['Start Time'](result)).toLocaleString([], datetimeOptions)}</td>
+            <td className="px-6 py-4">
+                {new Date(ArenaColumns['Start Time'](result)).toLocaleString([], datetimeOptions)}
+            </td>
         </tr>)
 
     return <table className="w-full text-sm text-left rtl:text-right text-gray-600 dark:text-gray-300">
@@ -72,6 +79,8 @@ export function Results(results: TournamentResult[]) {
         <tr>{headers}</tr>
         </thead>
         <tbody>{rows}</tbody>
+        <tfoot>
+        <tr><td colSpan={6}>{ Paginator(page, setPage, results.length, pageSize, setPageSize) }</td></tr></tfoot>
     </table>
 }
 
