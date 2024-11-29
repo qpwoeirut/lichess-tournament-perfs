@@ -22,7 +22,7 @@ const ArenaColumns = {
     'Start Time': (t: TournamentResult) => t.tournament.startsAt
 } satisfies Record<string, (_: TournamentResult) => string | number>;
 
-type Column = keyof typeof ArenaColumns;
+export type Column = keyof typeof ArenaColumns;
 
 
 export function Results(results: TournamentResult[]) {
