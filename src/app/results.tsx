@@ -16,6 +16,8 @@ const ArenaColumns = {
     'Performance': (t: TournamentResult) => t.player.performance ?? 0,
     'Points': (t: TournamentResult) => t.player.score,
     'Games Played': (t: TournamentResult) => t.player.games,
+    'Rank': (t: TournamentResult) => t.player.rank,
+    'Total Players': (t: TournamentResult) => t.tournament.nbPlayers,
     'Variant': (t: TournamentResult) => t.tournament.variant.name,
     'Start Time': (t: TournamentResult) => t.tournament.startsAt
 } satisfies Record<string, (_: TournamentResult) => string | number>;
@@ -80,7 +82,7 @@ export function Results(results: TournamentResult[]) {
         </thead>
         <tbody>{rows}</tbody>
         <tfoot>
-        <tr><td colSpan={6}>{ Paginator(page, setPage, results.length, pageSize, setPageSize) }</td></tr></tfoot>
+        <tr><td colSpan={Object.keys(ArenaColumns).length}>{ Paginator(page, setPage, results.length, pageSize, setPageSize) }</td></tr></tfoot>
     </table>
 }
 
