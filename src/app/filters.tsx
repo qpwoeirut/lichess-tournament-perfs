@@ -36,11 +36,11 @@ export const matchesFilter = (filter: TournamentFilter, result: TournamentResult
     const value = filter.transform(result);
     switch (filter.operator) {
         case FilterOperator.EQ:
-            return filter.value === value;
+            return value == filter.value;
         case FilterOperator.LE:
-            return filter.value <= value;
+            return value <= filter.value;
         case FilterOperator.GE:
-            return filter.value >= value;
+            return value >= filter.value;
         default:
             return true;
     }

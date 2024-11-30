@@ -8,7 +8,8 @@ interface FilterProps {
 }
 
 export function InputFilter(props: FilterProps) {
-    const setOperator = (operator: FilterOperator) => {
+    const setOperator = (opVal: string) => {
+        const operator = Object.values(FilterOperator).includes(opVal as FilterOperator) ? opVal as FilterOperator : null;
         props.setFilter({...props.filter, operator})
     }
     const setValue = (value: string) => {
@@ -18,11 +19,12 @@ export function InputFilter(props: FilterProps) {
     return (
         <>
             <label>{props.name}</label>
-            <select value={props.filter.operator ?? ''}>
+            <select
+                value={props.filter.operator ?? ''}
+                onChange={(event) => setOperator(event.currentTarget.value)}
+            >
                 {[FilterOperator.EQ, FilterOperator.LE, FilterOperator.GE].map(option => (
-                    <option key={option} value={option} onSelect={() => setOperator(option)}>
-                        {option}
-                    </option>
+                    <option key={option} value={option}>{option}</option>
                 ))}
             </select>
             <input
@@ -42,11 +44,12 @@ export function SelectFilter(props: FilterProps & { valueOptions: (string | numb
     return (
         <>
             <label>{props.name}: </label>
-            <select value={props.filter.value ?? ''}>
+            <select
+                value={props.filter.value ?? ''}
+                onChange={(event) => setValue(event.currentTarget.value)}
+            >
                 {props.valueOptions.map(option =>
-                    <option key={option} value={option} onSelect={() => setValue(option)}>
-                        {option}
-                    </option>)
+                    <option key={option} value={option}>{option}</option>)
                 }
             </select>
         </>
