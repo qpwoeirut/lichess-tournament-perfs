@@ -52,12 +52,12 @@ interface FiltersProps {
 }
 
 const VARIANTS = [
-    "Standard", "Antichess", "Atomic", "Chess960", "Crazyhouse", "Horde", "King of the Hill", "Racing Kings", "Three-check"
+    "", "Standard", "Antichess", "Atomic", "Chess960", "Crazyhouse", "Horde", "King of the Hill", "Racing Kings", "Three-check"
 ]
 
 export function Filters(props: FiltersProps) {
     return (
-        <>
+        <div className="flex flex-col">
             <InputFilter
                 name="Performance"
                 filter={props.filters.performance}
@@ -89,6 +89,6 @@ export function Filters(props: FiltersProps) {
                 setFilter={(filter) => props.setFilters({...props.filters, variant: filter})}
                 valueOptions={VARIANTS}
             />
-        </>
+        </div>
     )
 }
