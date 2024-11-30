@@ -38,7 +38,7 @@ export function InputFilter(props: FilterProps) {
 
 export function SelectFilter(props: FilterProps & { valueOptions: (string | number)[] }) {
     const setValue = (value: string | number) => {
-        props.setFilter({...props.filter, value})
+        props.setFilter({...props.filter, operator: FilterOperator.EQ, value})
     }
 
     return (

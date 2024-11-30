@@ -56,8 +56,8 @@ const VARIANTS = [
 ]
 
 export function Filters(props: FiltersProps) {
-    return <div>
-        <div>
+    return (
+        <>
             <InputFilter
                 name="Performance"
                 filter={props.filters.performance}
@@ -89,6 +89,6 @@ export function Filters(props: FiltersProps) {
                 setFilter={(filter) => props.setFilters({...props.filters, variant: filter})}
                 valueOptions={VARIANTS}
             />
-        </div>
-    </div>
+        </>
+    )
 }
