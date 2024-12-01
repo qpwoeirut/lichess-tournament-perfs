@@ -1,5 +1,5 @@
 import {FilterOperator, TournamentFilter} from "@/app/filters";
-import {Column} from "@/app/results";
+import type {Column} from "@/app/results";
 
 interface FilterProps {
     name: Column;

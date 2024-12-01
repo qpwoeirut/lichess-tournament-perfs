@@ -5,7 +5,7 @@ import {Description} from "@/app/description";
 import {EMPTY_FILTER_SET, Filters, FilterSet, matchesFilter, TournamentFilter} from "@/app/filters";
 import {fetchTournamentResultsStream} from "@/app/lichess-api";
 import {Results} from "@/app/results";
-import {TournamentResult} from "@/app/types";
+import type {TournamentResult} from "@/app/types";
 import {UsernameInput} from "@/app/username-input";
 
 export default function Home() {

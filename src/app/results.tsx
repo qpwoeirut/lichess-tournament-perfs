@@ -1,4 +1,4 @@
-import {TournamentResult} from "@/app/types";
+import type {TournamentResult} from "@/app/types";
 import {useState} from "react";
 import {arrowDown, arrowUp} from "@/app/arrow";
 import {Paginator} from "@/app/paginator";

@@ -1,5 +1,5 @@
 import {InputFilter, SelectFilter} from "@/app/filter";
-import {TournamentResult} from "@/app/types";
+import type {TournamentResult} from "@/app/types";
 
 export enum FilterOperator {
     EQ = '=',

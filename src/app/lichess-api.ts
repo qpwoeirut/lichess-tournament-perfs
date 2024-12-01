@@ -1,4 +1,4 @@
-import {TournamentResult} from "@/app/types";
+import type {TournamentResult} from "@/app/types";
 import ndjsonStream, {StreamObject} from "can-ndjson-stream";
 
 
