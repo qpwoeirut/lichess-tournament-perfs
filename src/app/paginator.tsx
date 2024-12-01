@@ -11,7 +11,11 @@ interface PaginatorProps {
 export function Paginator(props: PaginatorProps) {
     const pages = Math.ceil(props.total / props.pageSize);
     const visibleButtons = [
-        0, props.page - 3, props.page - 2, props.page - 1, props.page, props.page + 1, props.page + 2, props.page + 3, pages - 1
+        0,
+        props.page - 10, props.page - 5, props.page - 2, props.page - 1,
+        props.page,
+        props.page + 1, props.page + 2, props.page + 5, props.page + 10,
+        pages - 1
     ];
     const buttonIdxs = visibleButtons
         .sort((a, b) => a - b)

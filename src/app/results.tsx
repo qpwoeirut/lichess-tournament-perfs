@@ -91,7 +91,7 @@ export function Results(props: { results: TournamentResult[] }) {
                         page={page}
                         setPage={setPage}
                         total={props.results.length}
-                        pageSize={page}
+                        pageSize={pageSize}
                         setPageSize={setPageSize}
                     />
                 </td>
