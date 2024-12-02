@@ -57,7 +57,7 @@ const VARIANTS = [
 
 export function Filters(props: FiltersProps) {
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-y-2">
             <InputFilter
                 name="Performance"
                 filter={props.filters.performance}
