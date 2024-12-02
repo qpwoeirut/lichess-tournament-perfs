@@ -35,7 +35,7 @@ export function InputFilter(props: FilterProps) {
                     onInput={event => setValue(event.currentTarget.value)}
                     value={props.filter.value ?? ""}
                     type="number"
-                    className={classes}
+                    className={classes + ' w-20'}
                 />
             </div>
         </div>
