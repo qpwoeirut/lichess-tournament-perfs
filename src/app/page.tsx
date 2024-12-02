@@ -25,9 +25,11 @@ export default function Home() {
         );
     }, [filters, allResults]);
 
-    return <main className="max-w-6xl mx-auto p-4">
-        <Description />
-        <section className="flex">
+    return <main className="max-w-6xl mx-auto">
+        <section className="p-4">
+            <Description/>
+        </section>
+        <section className="p-4">
             <UsernameInput username={username} setUsername={setUsername} />
             <Filters filters={filters} setFilters={setFilters} />
         </section>

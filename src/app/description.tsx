@@ -1,5 +1,5 @@
 export function Description() {
-    return <div>
+    return <>
         <h1 className="text-xl text-center">Welcome to the lichess-tournament-perfs tool!</h1>
         <p>
             This is a website which looks up a user&#39;s arena tournament performances on <a
@@ -9,5 +9,5 @@ export function Description() {
                 Horde Variant Titles
             </a>).
         </p>
-    </div>
+    </>
 }
