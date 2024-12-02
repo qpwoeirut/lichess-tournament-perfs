@@ -24,6 +24,8 @@ const ArenaColumns = {
 
 export type Column = keyof typeof ArenaColumns;
 
+const cellPadding = "p-2 sm:px-3 sm:py-4"
+
 
 export function Results(props: { results: TournamentResult[] }) {
     const [sortColumn, setSortColumn] = useState<Column>("Start Time");
@@ -37,7 +39,7 @@ export function Results(props: { results: TournamentResult[] }) {
     const [pageSize, setPageSize] = useState<number>(20);
 
     const headers = Object.keys(ArenaColumns).map((name) =>
-        <th key={name} scope="col" className="px-6 py-3" onClick={() => updateSortColumn(name as Column)}>
+        <th key={name} scope="col" className={cellPadding} onClick={() => updateSortColumn(name as Column)}>
             <div className="flex items-center cursor-pointer">
                 {name} {name === sortColumn ? sortDirection ? arrowDown : arrowUp : ''}
             </div>
@@ -60,7 +62,7 @@ export function Results(props: { results: TournamentResult[] }) {
     const rows = props.results
         .slice(page * pageSize, (page + 1) * pageSize).map((result) =>
             <tr key={result.tournament.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <td className="px-6 py-4">
+                <td className={cellPadding}>
                     <a href={linkFor(result)}
                        className="light:hover:text-blue-800 dark:hover:text-gray-100 hover:underline"
                        target="_blank" rel="noopener noreferrer"
@@ -69,11 +71,11 @@ export function Results(props: { results: TournamentResult[] }) {
                     </a>
                 </td>
                 {Object.keys(ArenaColumns).filter(name => !['Arena', 'Start Time'].includes(name)).map((name) =>
-                    <td key={name} className="px-6 py-4">
+                    <td key={name} className={cellPadding}>
                         {ArenaColumns[name as Column](result)}
                     </td>)
                 }
-                <td className="px-6 py-4">
+                <td className={cellPadding}>
                     {new Date(ArenaColumns['Start Time'](result)).toLocaleString([], datetimeOptions)}
                 </td>
             </tr>)
