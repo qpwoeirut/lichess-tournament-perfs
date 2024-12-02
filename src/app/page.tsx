@@ -2,11 +2,12 @@
 
 import {useEffect, useMemo, useState} from "react";
 import {Description} from "@/app/description";
-import {EMPTY_FILTER_SET, Filters, FilterSet, matchesFilter, TournamentFilter} from "@/app/filters";
+import {EMPTY_FILTER_SET, Filters, FilterSet, matchesFilter, TournamentFilter} from "@/app/filters/filters";
 import {fetchTournamentResultsStream} from "@/app/lichess-api";
 import {Results} from "@/app/results";
 import type {TournamentResult} from "@/app/types";
 import {UsernameInput} from "@/app/username-input";
+import {FilterPresets} from "@/app/filters/filter-presets";
 
 export default function Home() {
     const [username, setUsername] = useState("qpwoeirut");
@@ -27,7 +28,12 @@ export default function Home() {
         </section>
         <section className="p-4">
             <UsernameInput username={username} setUsername={setUsername}/>
-            <Filters filters={filters} setFilters={setFilters}/>
+        </section>
+        <section className="p-4">
+            <div className="flex justify-around">
+                <FilterPresets/>
+                <Filters filters={filters} setFilters={setFilters}/>
+            </div>
         </section>
         <Results results={filteredResults}/>
     </main>
