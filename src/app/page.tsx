@@ -32,7 +32,7 @@ export default function Home() {
         </section>
         <section className="p-4">
             <div className="flex justify-around">
-                <FilterPresets/>
+                <FilterPresets filters={filters} setFilters={setFilters}/>
                 <Filters filters={filters} setFilters={setFilters}/>
             </div>
         </section>
