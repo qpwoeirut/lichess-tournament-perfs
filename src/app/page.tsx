@@ -2,12 +2,13 @@
 
 import {useEffect, useMemo, useState} from "react";
 import {Description} from "@/app/description";
-import {EMPTY_FILTER_SET, Filters, FilterSet, matchesFilter, TournamentFilter} from "@/app/filters/filters";
+import {Filters, FilterSet, matchesFilter, TournamentFilter} from "@/app/filters/filters";
 import {fetchTournamentResultsStream} from "@/app/lichess-api";
 import {Results} from "@/app/results";
 import type {TournamentResult} from "@/app/types";
 import {UsernameInput} from "@/app/username-input";
 import {FilterPresets} from "@/app/filters/filter-presets";
+import {EMPTY_FILTER_SET} from "@/app/filters/empty-filters";
 
 export default function Home() {
     const [username, setUsername] = useState("qpwoeirut");

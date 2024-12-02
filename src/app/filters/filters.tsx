@@ -22,14 +22,6 @@ export interface FilterSet {
     variant: TournamentFilter;
 }
 
-export const EMPTY_FILTER_SET: FilterSet = {
-    performance: {transform: (result) => result.player.performance},
-    points: {transform: (result) => result.player.score},
-    gamesPlayed: {transform: (result) => result.player.games},
-    rank: {transform: (result) => result.player.rank},
-    totalPlayers: {transform: (result) => result.tournament.nbPlayers},
-    variant: {transform: (result) => result.tournament.variant.name}
-};
 
 export const matchesFilter = (filter: TournamentFilter, result: TournamentResult) => {
     if (!filter.operator || !filter.value) return true;
@@ -46,7 +38,7 @@ export const matchesFilter = (filter: TournamentFilter, result: TournamentResult
     }
 }
 
-interface FiltersProps {
+export interface FiltersProps {
     filters: FilterSet;
     setFilters: (filters: FilterSet) => void;
 }
