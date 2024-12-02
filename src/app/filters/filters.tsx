@@ -1,4 +1,4 @@
-import {InputFilter, SelectFilter} from "@/app/filter";
+import {InputFilter, SelectFilter} from "@/app/filters/filter";
 import type {TournamentResult} from "@/app/types";
 
 export enum FilterOperator {
