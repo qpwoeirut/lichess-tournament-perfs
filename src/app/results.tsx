@@ -11,7 +11,7 @@ const datetimeOptions = {
     "minute": "2-digit",
 } as const;
 
-const ArenaColumns = {
+const ArenaColumns: Record<string, (_: TournamentResult) => string | number> = {
     'Arena': (t: TournamentResult) => t.tournament.fullName,
     'Performance': (t: TournamentResult) => t.player.performance ?? 0,
     'Points': (t: TournamentResult) => t.player.score,
@@ -20,7 +20,7 @@ const ArenaColumns = {
     'Total Players': (t: TournamentResult) => t.tournament.nbPlayers,
     'Variant': (t: TournamentResult) => t.tournament.variant.name,
     'Start Time': (t: TournamentResult) => t.tournament.startsAt
-} satisfies Record<string, (_: TournamentResult) => string | number>;
+} as const;
 
 export type Column = keyof typeof ArenaColumns;
 
