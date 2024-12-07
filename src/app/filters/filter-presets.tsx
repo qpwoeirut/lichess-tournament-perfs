@@ -1,10 +1,13 @@
 import {FilterOperator, FilterSet, FiltersProps} from "@/app/filters/filters";
 import {
     DEFAULT_GAMES_PLAYED_FILTER,
-    DEFAULT_PERFORMANCE_FILTER, DEFAULT_RANK_FILTER,
-    DEFAULT_TOTAL_PLAYERS_FILTER, DEFAULT_VARIANT_FILTER,
+    DEFAULT_PERFORMANCE_FILTER,
+    DEFAULT_RANK_FILTER,
+    DEFAULT_TOTAL_PLAYERS_FILTER,
+    DEFAULT_VARIANT_FILTER,
     EMPTY_FILTER_SET
 } from "@/app/filters/empty-filters";
+import {Button, RoundedMode} from "@/app/components/button";
 
 const FILTER_PRESETS: Record<string, FilterSet>[] = [
     {
@@ -18,14 +21,21 @@ const FILTER_PRESETS: Record<string, FilterSet>[] = [
     } as const
 ] as const;
 
-
 export function FilterPresets(props: FiltersProps) {
     return (
         <div>
             {FILTER_PRESETS.map((presets, index) =>
-                <div key={index} className="flex flex-col p-3">
+                <div key={index} className="flex flex-col p-4">
                     {Object.keys(presets).map(name =>
-                        <button key={name} onClick={() => props.setFilters(presets[name])}>{name}</button>
+                        <Button
+                            key={name}
+                            onClick={() => props.setFilters(presets[name])}
+                            selected={props.filters === presets[name]}
+                            rounded={RoundedMode.ALL}
+                            className="m-1"
+                        >
+                            {name}
+                        </Button>
                     )}
                 </div>
             )}

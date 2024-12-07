@@ -6,7 +6,7 @@ interface UsernameInputProps {
 export function UsernameInput(props: UsernameInputProps) {
     return (
         <div className="flex text-2xl justify-center">
-            <label htmlFor="username">Lichess username: </label>
+            <label htmlFor="username" className="mr-1">Lichess username: </label>
             <input
                 value={props.username}
                 onChange={e => props.setUsername(e.target.value)}

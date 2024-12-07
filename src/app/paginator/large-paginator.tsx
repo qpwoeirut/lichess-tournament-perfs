@@ -1,5 +1,5 @@
 import type {PaginatorProps} from "@/app/paginator/paginator";
-import {PaginatorButton} from "@/app/paginator/paginator-button";
+import {Button} from "@/app/components/button";
 import {arrowLeft, arrowRight} from "@/app/arrow";
 
 export function LargePaginator(props: PaginatorProps) {
@@ -19,13 +19,13 @@ export function LargePaginator(props: PaginatorProps) {
         );
 
     const pageButtons = buttonIdxs.map((pageIdx) =>
-        <PaginatorButton
+        <Button
             key={pageIdx}
             onClick={() => props.setPage(pageIdx)}
             selected={pageIdx === props.page}
         >
             {pageIdx + 1}
-        </PaginatorButton>
+        </Button>
     );
 
     return (
@@ -34,21 +34,21 @@ export function LargePaginator(props: PaginatorProps) {
                 Showing {props.page * props.pageSize + 1} to {Math.min(props.total, (props.page + 1) * props.pageSize)} of {props.total} results
             </p>
             <div className="flex items-center">
-                <PaginatorButton
+                <Button
                     onClick={() => props.setPage(props.page - 1)}
                     disabled={props.page <= 0}
                 >
                     <span className="sr-only">Go back one page</span>
                     {arrowLeft}
-                </PaginatorButton>
+                </Button>
                 {pageButtons}
-                <PaginatorButton
+                <Button
                     onClick={() => props.setPage(props.page + 1)}
                     disabled={pages <= props.page + 1}
                 >
                     <span className="sr-only">Go forward one page</span>
                     {arrowRight}
-                </PaginatorButton>
+                </Button>
             </div>
         </div>
     )
