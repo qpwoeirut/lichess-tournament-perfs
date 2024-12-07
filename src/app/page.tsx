@@ -21,7 +21,7 @@ export default function Home() {
         [allResults, filters]
     );
 
-    useEffect(() => fetchTournamentResultsStream(username, setAllResults), [username]);
+    useEffect(() => void fetchTournamentResultsStream(username, setAllResults), [username]);
 
     return <main className="max-w-6xl mx-auto">
         <section className="p-4">
