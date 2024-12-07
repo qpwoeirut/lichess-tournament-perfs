@@ -2,13 +2,13 @@ import type {TournamentResult} from "@/app/types";
 import ndjsonStream, {StreamObject} from "can-ndjson-stream";
 
 
-const BUFFER_SIZE = 50;
+const BUFFER_SIZE = 100;
 
 
 export function fetchTournamentResultsStream(username: string, setResults: (_: TournamentResult[]) => void) {
     if (username.length === 0) return;
 
-    let results: TournamentResult[] = [];
+    const results: TournamentResult[] = [];
     let buffered = 0;
 
     fetch(`https://lichess.org/api/user/${username}/tournament/played?performance=true`)
@@ -28,14 +28,14 @@ export function fetchTournamentResultsStream(username: string, setResults: (_: T
             const reader = stream.getReader();
             const read = (result: StreamObject) => {
                 if (result.done) {
-                    setResults(results);
+                    setResults([...results]);
                     return;
                 }
 
-                results = [...results, result.value as TournamentResult];
+                results.push(result.value as TournamentResult);
                 if (++buffered >= BUFFER_SIZE) {
                     buffered = 0;
-                    setResults(results);
+                    setResults([...results]);
                 }
 
                 reader.read().then(read);
