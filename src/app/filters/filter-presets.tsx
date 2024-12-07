@@ -23,9 +23,9 @@ const FILTER_PRESETS: Record<string, FilterSet>[] = [
 
 export function FilterPresets(props: FiltersProps) {
     return (
-        <div>
+        <div className="flex flex-col gap-y-4">
             {FILTER_PRESETS.map((presets, index) =>
-                <div key={index} className="flex flex-col p-4">
+                <div key={index} className="flex flex-col">
                     {Object.keys(presets).map(name =>
                         <Button
                             key={name}
