@@ -1,4 +1,4 @@
-import type {TournamentResult} from "@/app/types";
+import type {AutocompleteResponse, TournamentResult} from "@/app/types";
 import ndjsonStream from "can-ndjson-stream";
 
 
@@ -34,4 +34,24 @@ export async function fetchTournamentResultsStream(username: string, setResults:
             setResults([...results]);
         }
     }
+}
+
+
+/**
+ * Fetches https://lichess.org/api#tag/Users/operation/apiPlayerAutocomplete and calls setUsernameOptions with result
+ *
+ * @param username current username prefix
+ * @param setUsernameOptions callback to set the usernameOptions prop
+ */
+export async function fetchUsernameAutocompleteOptions(username: string, setUsernameOptions: (options: string[]) => void) {
+    if (username.length < 3) {
+        setUsernameOptions([]);
+        return;
+    }
+
+    const res = await fetch(`https://lichess.org/api/player/autocomplete?object=true&term=${username}`);
+    const resp = await res.json() as AutocompleteResponse;
+
+    const options = resp.result.filter(opt => opt.id !== username && opt.name !== username);
+    setUsernameOptions(options.map(opt => opt.name));
 }

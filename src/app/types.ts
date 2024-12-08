@@ -53,3 +53,13 @@ export interface TournamentResult {
     tournament: Tournament;
     player: TournamentPlayer;
 }
+
+
+export interface AutocompleteResponse {
+    result: AutocompleteOption[];
+}
+
+export interface AutocompleteOption {
+    name: string;
+    id: string;
+}
