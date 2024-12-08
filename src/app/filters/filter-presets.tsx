@@ -14,10 +14,10 @@ const FILTER_PRESETS: Record<string, FilterSet>[] = [
         'None': EMPTY_FILTER_SET
     } as const,
     { // https://lichess.org/team/horde-variant-titles
-        'Horde CM norm': createHordeFilterPreset({totalPlayers: 8, performance: 2100, gamesPlayed: 7, rank: 5}),
-        'Horde NM norm': createHordeFilterPreset({totalPlayers: 8, performance: 2300, gamesPlayed: 7, rank: 5}),
-        'Horde IM norm': createHordeFilterPreset({totalPlayers: 8, performance: 2500, gamesPlayed: 7, rank: 3}),
-        'Horde GM norm': createHordeFilterPreset({totalPlayers: 8, performance: 2600, gamesPlayed: 7, rank: 1})
+        'Horde CM norm': createHordeFilterPreset({performance: 2100, rank: 5}),
+        'Horde NM norm': createHordeFilterPreset({performance: 2300, rank: 5}),
+        'Horde IM norm': createHordeFilterPreset({performance: 2500, rank: 3}),
+        'Horde GM norm': createHordeFilterPreset({performance: 2600, rank: 1})
     } as const
 ] as const;
 
@@ -44,18 +44,13 @@ export function FilterPresets(props: FiltersProps) {
 }
 
 
-function createHordeFilterPreset({totalPlayers, performance, gamesPlayed, rank}: {
-    totalPlayers: number,
-    performance: number,
-    gamesPlayed: number,
-    rank: number
-}): FilterSet {
+function createHordeFilterPreset({performance, rank}: { performance: number, rank: number }): FilterSet {
     return {
         ...EMPTY_FILTER_SET,
         totalPlayers: {
             ...DEFAULT_TOTAL_PLAYERS_FILTER,
             operator: FilterOperator.GE,
-            value: totalPlayers
+            value: 8
         },
         performance: {
             ...DEFAULT_PERFORMANCE_FILTER,
@@ -65,7 +60,7 @@ function createHordeFilterPreset({totalPlayers, performance, gamesPlayed, rank}:
         gamesPlayed: {
             ...DEFAULT_GAMES_PLAYED_FILTER,
             operator: FilterOperator.GE,
-            value: gamesPlayed
+            value: 7
         },
         rank: {
             ...DEFAULT_RANK_FILTER,
