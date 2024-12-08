@@ -1,5 +1,5 @@
 import type {TournamentResult} from "@/app/types";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {arrowDown, arrowUp} from "@/app/arrow";
 import {Paginator} from "@/app/paginator/paginator";
 
@@ -37,6 +37,11 @@ export function Results(props: { results: TournamentResult[] }) {
 
     const [page, setPage] = useState<number>(0);
     const [pageSize, setPageSize] = useState<number>(20);
+
+    useEffect(() => {
+        const pages = Math.ceil(props.results.length / pageSize);
+        if (page > pages) setPage(pages - 1);
+    }, [page, pageSize, props.results.length]);
 
     const headers = Object.keys(ArenaColumns).map((name) =>
         <th key={name} scope="col" className={cellPadding} onClick={() => updateSortColumn(name as Column)}>
