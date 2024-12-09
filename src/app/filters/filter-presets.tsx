@@ -10,9 +10,13 @@ import {
 import {Button, RoundedMode} from "@/app/components/button";
 
 const FILTER_PRESETS: Record<string, FilterSet>[] = [
-    {
-        'None': EMPTY_FILTER_SET
-    } as const,
+    { // https://lichess.org/team/antichess-titles, https://www.antichess.org/antichess-titles
+        'Antichess CM norm': createAntichessFilterPreset({performance: 2000}),
+        'Antichess M norm': createAntichessFilterPreset({performance: 2300}),
+        'Antichess IM norm': createAntichessFilterPreset({performance: 2400}),
+        'Antichess GM norm': createAntichessFilterPreset({performance: 2500}),
+        'Antichess SGM norm': createAntichessFilterPreset({performance: 2600}),
+    },
     { // https://lichess.org/team/horde-variant-titles
         'Horde CM norm': createHordeFilterPreset({performance: 2100, rank: 5}),
         'Horde NM norm': createHordeFilterPreset({performance: 2300, rank: 5}),
@@ -23,26 +27,58 @@ const FILTER_PRESETS: Record<string, FilterSet>[] = [
 
 export function FilterPresets(props: FiltersProps) {
     return (
-        <div className="flex flex-col gap-y-4">
-            {FILTER_PRESETS.map((presets, index) =>
-                <div key={index} className="flex flex-col">
-                    {Object.keys(presets).map(name =>
-                        <Button
-                            key={name}
-                            onClick={() => props.setFilters(presets[name])}
-                            selected={props.filters === presets[name]}
-                            rounded={RoundedMode.ALL}
-                            className="m-1"
-                        >
-                            {name}
-                        </Button>
-                    )}
-                </div>
-            )}
+        <div className="flex flex-col gap-y-6 items-center">
+            <Button
+                onClick={() => props.setFilters(EMPTY_FILTER_SET)}
+                selected={props.filters === EMPTY_FILTER_SET}
+                rounded={RoundedMode.ALL}
+                className="m-1 w-fit"
+            >
+                None
+            </Button>
+            <div className="grid grid-cols-2 gap-x-4 sm:gap-x-12">
+                {FILTER_PRESETS.map((presets, index) =>
+                    <div key={index} className="flex flex-col">
+                        {Object.keys(presets).map(name =>
+                            <Button
+                                key={name}
+                                onClick={() => props.setFilters(presets[name])}
+                                selected={props.filters === presets[name]}
+                                rounded={RoundedMode.ALL}
+                                className="m-1 min-w-fit text-nowrap"
+                            >
+                                <span className="inline sm:hidden">{shorten(name)}</span>
+                                <span className="hidden sm:inline">{name}</span>
+                            </Button>
+                        )}
+                    </div>
+                )}
+            </div>
         </div>
     );
 }
 
+
+function createAntichessFilterPreset({performance}: { performance: number }): FilterSet {
+    return {
+        ...EMPTY_FILTER_SET,
+        performance: {
+            ...DEFAULT_PERFORMANCE_FILTER,
+            operator: FilterOperator.GE,
+            value: performance
+        },
+        gamesPlayed: {
+            ...DEFAULT_GAMES_PLAYED_FILTER,
+            operator: FilterOperator.GE,
+            value: 13
+        },
+        variant: {
+            ...DEFAULT_VARIANT_FILTER,
+            operator: FilterOperator.EQ,
+            value: 'Antichess'
+        }
+    }
+}
 
 function createHordeFilterPreset({performance, rank}: { performance: number, rank: number }): FilterSet {
     return {
@@ -73,4 +109,8 @@ function createHordeFilterPreset({performance, rank}: { performance: number, ran
             value: 'Horde'
         }
     }
+}
+
+function shorten(name: string): string {
+    return name.replace("Antichess ", "A").replace("Horde ", "H")
 }
