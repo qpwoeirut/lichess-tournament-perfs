@@ -24,7 +24,7 @@ const ArenaColumns: Record<string, (_: TournamentResult) => string | number> = {
 
 export type Column = keyof typeof ArenaColumns;
 
-const cellPadding = "p-2 sm:px-3 sm:py-4"
+const cellPadding = "p-1 sm:px-3 sm:py-4"
 
 
 export function Results(props: { results: TournamentResult[] }) {

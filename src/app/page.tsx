@@ -24,13 +24,13 @@ export default function Home() {
     useEffect(() => void fetchTournamentResultsStream(username, setAllResults), [username]);
 
     return <main className="max-w-6xl mx-auto">
-        <section className="p-4">
+        <section className="p-1 sm:p-4">
             <Description/>
         </section>
-        <section className="p-4">
+        <section className="p-1 sm:p-4">
             <UsernameInput username={username} setUsername={setUsername}/>
         </section>
-        <section className="p-4">
+        <section className="p-1 sm:p-4">
             <div className="flex justify-around">
                 <FilterPresets filters={filters} setFilters={setFilters}/>
                 <Filters filters={filters} setFilters={setFilters}/>
