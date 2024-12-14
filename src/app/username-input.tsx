@@ -36,7 +36,8 @@ export function UsernameInput(props: UsernameInputProps) {
                             key={option}
                             onMouseDown={(event) => {
                                 event.preventDefault();
-                                props.setUsername(option)
+                                props.setUsername(option);
+                                (document.activeElement as HTMLElement).blur();
                             }}
                             className="block px-1 py-0.5 w-full text-left hover:bg-gray-100 dark:hover:bg-gray-900"
                         >
