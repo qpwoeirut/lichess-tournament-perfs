@@ -41,7 +41,7 @@ export function Results(props: { results: TournamentResult[] }) {
 
     useEffect(() => {
         const pages = Math.ceil(props.results.length / pageSize);
-        if (page > pages) setPage(pages - 1);
+        if (page > pages) setPage(Math.max(0, pages - 1));
     }, [page, pageSize, props.results.length]);
 
     const headers = Object.keys(ArenaColumns).map((name) =>
