@@ -30,7 +30,7 @@ export function UsernameInput(props: UsernameInputProps) {
                     className="peer text-2xl px-1 bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 block dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
                     id="username" type="text" placeholder="username"
                 />
-                <div className="hidden peer-focus:block absolute bg-black mt-0.5">
+                <div className="hidden peer-focus:block absolute bg-gray-100 dark:bg-black mt-0.5">
                     {usernameOptions.map(option =>
                         <button
                             key={option}
@@ -39,7 +39,7 @@ export function UsernameInput(props: UsernameInputProps) {
                                 props.setUsername(option);
                                 (document.activeElement as HTMLElement).blur();
                             }}
-                            className="block px-1 py-0.5 w-full text-left hover:bg-gray-100 dark:hover:bg-gray-900"
+                            className="block px-1 py-0.5 w-full text-left hover:bg-gray-200 dark:hover:bg-gray-900"
                         >
                             {option}
                         </button>
