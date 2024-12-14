@@ -2,6 +2,7 @@ import type {TournamentResult} from "@/app/types";
 import {useEffect, useState} from "react";
 import {arrowDown, arrowUp} from "@/app/arrow";
 import {Paginator} from "@/app/paginator/paginator";
+import {Link} from "@/app/components/link";
 
 const datetimeOptions = {
     "year": "numeric",
@@ -68,12 +69,9 @@ export function Results(props: { results: TournamentResult[] }) {
         .slice(page * pageSize, (page + 1) * pageSize).map((result) =>
             <tr key={result.tournament.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                 <td className={cellPadding}>
-                    <a href={linkFor(result)}
-                       className="light:hover:text-blue-800 dark:hover:text-gray-100 hover:underline"
-                       target="_blank" rel="noopener noreferrer"
-                    >
+                    <Link href={linkFor(result)}>
                         {result.tournament.fullName}
-                    </a>
+                    </Link>
                 </td>
                 {Object.keys(ArenaColumns).filter(name => !['Arena', 'Start Time'].includes(name)).map((name) =>
                     <td key={name} className={cellPadding}>
