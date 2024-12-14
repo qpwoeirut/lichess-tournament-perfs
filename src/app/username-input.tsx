@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import {fetchUsernameAutocompleteOptions} from "@/app/lichess-api";
 
 interface UsernameInputProps {
@@ -7,8 +7,17 @@ interface UsernameInputProps {
 }
 
 export function UsernameInput(props: UsernameInputProps) {
-    const [usernameOptions, setUsernameOptions] = useState<string[]>([]);
-    useEffect(() => void fetchUsernameAutocompleteOptions(props.username, setUsernameOptions), [props.username]);
+    const [autocompleteOptions, setAutocompleteOptions] = useState<Record<string, string>>({});
+    const usernameOptions = useMemo(() =>
+            Object.entries(autocompleteOptions)
+                .filter(([id, _]) => id.startsWith(props.username.toLowerCase()))
+                .map(([_, name]) => name)
+                .sort((a, b) => a.length - b.length)
+                .slice(0, props.username.length >= 3 ? 12 : 0),
+        [props.username, autocompleteOptions]
+    );
+
+    useEffect(() => void fetchUsernameAutocompleteOptions(props.username, setAutocompleteOptions), [props.username]);
 
     return (
         <div className="flex text-2xl justify-center">
