@@ -27,15 +27,8 @@ const FILTER_PRESETS: Record<string, FilterSet>[] = [
 
 export function FilterPresets(props: FiltersProps) {
     return (
-        <div className="flex flex-col gap-y-6 items-center">
-            <Button
-                onClick={() => props.setFilters(EMPTY_FILTER_SET)}
-                selected={props.filters === EMPTY_FILTER_SET}
-                rounded={RoundedMode.ALL}
-                className="m-1 w-fit"
-            >
-                None
-            </Button>
+        <div className="flex flex-col gap-y-3 items-center">
+            <h2 className="text-xl">Filter Presets</h2>
             <div className="grid grid-cols-2 gap-x-4 sm:gap-x-12">
                 {FILTER_PRESETS.map((presets, index) =>
                     <div key={index} className="flex flex-col">

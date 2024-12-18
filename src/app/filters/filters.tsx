@@ -1,5 +1,7 @@
 import {InputFilter, SelectFilter} from "@/app/filters/filter";
 import type {TournamentResult} from "@/app/types";
+import {Button, RoundedMode} from "@/app/components/button";
+import {EMPTY_FILTER_SET} from "@/app/filters/empty-filters";
 
 export enum FilterOperator {
     EQ = '=',
@@ -49,38 +51,44 @@ const VARIANTS = [
 
 export function Filters(props: FiltersProps) {
     return (
-        <div className="flex flex-col gap-y-2">
-            <InputFilter
-                name="Performance"
-                filter={props.filters.performance}
-                setFilter={(filter) => props.setFilters({...props.filters, performance: filter})}
-            />
-            <InputFilter
-                name="Points"
-                filter={props.filters.points}
-                setFilter={(filter) => props.setFilters({...props.filters, points: filter})}
-            />
-            <InputFilter
-                name="Games Played"
-                filter={props.filters.gamesPlayed}
-                setFilter={(filter) => props.setFilters({...props.filters, gamesPlayed: filter})}
-            />
-            <InputFilter
-                name="Rank"
-                filter={props.filters.rank}
-                setFilter={(filter) => props.setFilters({...props.filters, rank: filter})}
-            />
-            <InputFilter
-                name="Total Players"
-                filter={props.filters.totalPlayers}
-                setFilter={(filter) => props.setFilters({...props.filters, totalPlayers: filter})}
-            />
-            <SelectFilter
-                name="Variant"
-                filter={props.filters.variant}
-                setFilter={(filter) => props.setFilters({...props.filters, variant: filter})}
-                valueOptions={VARIANTS}
-            />
+        <div className="flex flex-col items-center gap-y-3">
+            <h2 className="text-xl">Filters</h2>
+            <div className="flex flex-col gap-y-2">
+                <InputFilter
+                    name="Performance"
+                    filter={props.filters.performance}
+                    setFilter={(filter) => props.setFilters({...props.filters, performance: filter})}
+                />
+                <InputFilter
+                    name="Points"
+                    filter={props.filters.points}
+                    setFilter={(filter) => props.setFilters({...props.filters, points: filter})}
+                />
+                <InputFilter
+                    name="Games Played"
+                    filter={props.filters.gamesPlayed}
+                    setFilter={(filter) => props.setFilters({...props.filters, gamesPlayed: filter})}
+                />
+                <InputFilter
+                    name="Rank"
+                    filter={props.filters.rank}
+                    setFilter={(filter) => props.setFilters({...props.filters, rank: filter})}
+                />
+                <InputFilter
+                    name="Total Players"
+                    filter={props.filters.totalPlayers}
+                    setFilter={(filter) => props.setFilters({...props.filters, totalPlayers: filter})}
+                />
+                <SelectFilter
+                    name="Variant"
+                    filter={props.filters.variant}
+                    setFilter={(filter) => props.setFilters({...props.filters, variant: filter})}
+                    valueOptions={VARIANTS}
+                />
+            </div>
+            <Button onClick={() => props.setFilters(EMPTY_FILTER_SET)} rounded={RoundedMode.ALL}>
+                Clear filters
+            </Button>
         </div>
     )
 }
