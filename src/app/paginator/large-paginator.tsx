@@ -30,9 +30,13 @@ export function LargePaginator(props: PaginatorProps) {
 
     return (
         <div className="flex justify-between w-full">
-            <p className="flex items-center">
+            <div className="flex flex-row gap-3 items-center">
                 Showing {props.page * props.pageSize + 1} to {Math.min(props.total, (props.page + 1) * props.pageSize)} of {props.total} results
-            </p>
+                <div role="status" className={"flex items-center justify-center" + (!props.loading && " hidden")}>
+                    <div className="w-4 h-4 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+                    <span className="sr-only">Loading...</span>
+                </div>
+            </div>
             <div className="flex items-center">
                 <Button
                     onClick={() => props.setPage(props.page - 1)}

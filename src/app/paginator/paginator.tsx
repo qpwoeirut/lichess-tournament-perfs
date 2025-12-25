@@ -7,6 +7,7 @@ export interface PaginatorProps {
     total: number;
     pageSize: number;
     setPageSize: (size: number) => void;
+    loading: boolean;
 }
 
 export function Paginator(props: PaginatorProps) {

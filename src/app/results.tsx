@@ -28,7 +28,7 @@ export type Column = keyof typeof ArenaColumns;
 const cellPadding = "p-1 sm:px-3 sm:py-4"
 
 
-export function Results(props: { results: TournamentResult[] }) {
+export function Results(props: { results: TournamentResult[], loading: boolean }) {
     const [sortColumn, setSortColumn] = useState<Column>("Start Time");
     const [sortDirection, setSortDirection] = useState<boolean>(true);
     const updateSortColumn = (col: Column) => {
@@ -98,6 +98,7 @@ export function Results(props: { results: TournamentResult[] }) {
                         total={props.results.length}
                         pageSize={pageSize}
                         setPageSize={setPageSize}
+                        loading={props.loading}
                     />
                 </td>
             </tr>

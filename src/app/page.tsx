@@ -13,6 +13,7 @@ import {EMPTY_FILTER_SET} from "@/app/filters/empty-filters";
 export default function Home() {
     const [username, setUsername] = useState("qpwoeirut");
     const [allResults, setAllResults] = useState<TournamentResult[]>([]);
+    const [loading, setLoading] = useState<boolean>(false);
     const [filters, setFilters] = useState<FilterSet>(EMPTY_FILTER_SET);
     const filteredResults = useMemo<TournamentResult[]>(
         () => allResults.filter(result =>
@@ -21,7 +22,7 @@ export default function Home() {
         [allResults, filters]
     );
 
-    useEffect(() => void fetchTournamentResultsStream(username, setAllResults), [username]);
+    useEffect(() => void fetchTournamentResultsStream(username, setAllResults, setLoading), [username]);
 
     return <main className="max-w-6xl mx-auto">
         <section className="p-1 sm:p-4">
@@ -36,6 +37,6 @@ export default function Home() {
                 <Filters filters={filters} setFilters={setFilters}/>
             </div>
         </section>
-        <Results results={filteredResults}/>
+        <Results results={filteredResults} loading={loading}/>
     </main>
 }

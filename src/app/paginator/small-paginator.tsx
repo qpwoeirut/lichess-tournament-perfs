@@ -24,7 +24,13 @@ export function SmallPaginator(props: PaginatorProps) {
                 </Button>
             </div>
 
-            {props.page * props.pageSize + 1} to {Math.min(props.total, (props.page + 1) * props.pageSize)} of {props.total}
+            <div className="flex flex-row gap-3">
+                {props.page * props.pageSize + 1} to {Math.min(props.total, (props.page + 1) * props.pageSize)} of {props.total}
+                <div role="status" className={"flex items-center justify-center" + (!props.loading && " hidden")}>
+                    <div className="w-4 h-4 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+                    <span className="sr-only">Loading...</span>
+                </div>
+            </div>
 
             <div>
                 <Button
