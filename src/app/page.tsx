@@ -10,6 +10,8 @@ import {UsernameInput} from "@/app/username-input";
 import {FilterPresets} from "@/app/filters/filter-presets";
 import {EMPTY_FILTER_SET} from "@/app/filters/empty-filters";
 
+const DEBOUNCE_DELAY = 300;
+
 export default function Home() {
     const [username, setUsername] = useState("qpwoeirut");
     const [allResults, setAllResults] = useState<TournamentResult[]>([]);
@@ -23,10 +25,16 @@ export default function Home() {
     );
 
     const abortControllerRef = useRef(new AbortController());
+    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
     useEffect(() => {
         abortControllerRef.current.abort("username changed");
         abortControllerRef.current = new AbortController();
-        void fetchTournamentResultsStream(username, setAllResults, setLoading, abortControllerRef.current).catch(console.log);
+        if (timeoutRef.current) clearTimeout(timeoutRef.current);
+        timeoutRef.current = setTimeout(() =>
+            void fetchTournamentResultsStream(username, setAllResults, setLoading, abortControllerRef.current)
+                .catch(console.log),
+            DEBOUNCE_DELAY
+        );
     }, [username]);
 
     return <main className="max-w-6xl mx-auto">
