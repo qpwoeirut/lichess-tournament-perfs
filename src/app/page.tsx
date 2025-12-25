@@ -1,6 +1,6 @@
 "use client"
 
-import {useEffect, useMemo, useState} from "react";
+import {useEffect, useMemo, useRef, useState} from "react";
 import {Description} from "@/app/description";
 import {Filters, FilterSet, matchesFilter, TournamentFilter} from "@/app/filters/filters";
 import {fetchTournamentResultsStream} from "@/app/lichess-api";
@@ -22,7 +22,12 @@ export default function Home() {
         [allResults, filters]
     );
 
-    useEffect(() => void fetchTournamentResultsStream(username, setAllResults, setLoading), [username]);
+    const abortControllerRef = useRef(new AbortController());
+    useEffect(() => {
+        abortControllerRef.current.abort("username changed");
+        abortControllerRef.current = new AbortController();
+        void fetchTournamentResultsStream(username, setAllResults, setLoading, abortControllerRef.current).catch(console.log);
+    }, [username]);
 
     return <main className="max-w-6xl mx-auto">
         <section className="p-1 sm:p-4">

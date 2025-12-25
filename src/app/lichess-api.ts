@@ -5,12 +5,18 @@ import ndjsonStream from "can-ndjson-stream";
 const BUFFER_SIZE = 100;
 
 
-export async function fetchTournamentResultsStream(username: string, setResults: (_: TournamentResult[]) => void, setLoading: (loading: boolean) => void) {
+export async function fetchTournamentResultsStream(
+    username: string,
+    setResults: (_: TournamentResult[]) => void,
+    setLoading: (loading: boolean) => void,
+    abortController: AbortController
+) {
     if (username.length === 0) return;
 
-    const res = await fetch(`https://lichess.org/api/user/${username}/tournament/played?performance=true`);
     setLoading(true);
-    if (res.status !== 200) {
+    const res = await fetch(`https://lichess.org/api/user/${username}/tournament/played?performance=true`, {signal: abortController.signal}).catch(() => null);
+    if (!res || res.status !== 200) {
+        setResults([]);
         setLoading(false);
         return null;
     }
