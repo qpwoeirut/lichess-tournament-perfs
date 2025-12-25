@@ -2,7 +2,7 @@ import type {AutocompleteOption, AutocompleteResponse, TournamentResult} from "@
 import ndjsonStream from "can-ndjson-stream";
 
 
-const BUFFER_SIZE = 100;
+const BUFFER_SIZE = 20;
 
 
 export async function fetchTournamentResultsStream(
